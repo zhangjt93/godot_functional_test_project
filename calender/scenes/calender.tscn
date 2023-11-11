@@ -1,0 +1,137 @@
+[gd_scene load_steps=8 format=3 uid="uid://dltbwrw18dpw4"]
+
+[ext_resource type="Texture2D" uid="uid://dv35vyv3l24a2" path="res://icons/left.svg" id="1_8devc"]
+[ext_resource type="Script" path="res://scripts/calender.gd" id="1_lfpui"]
+[ext_resource type="StyleBox" uid="uid://4ee740oytfbp" path="res://scenes/calender.tres" id="2_27c5l"]
+[ext_resource type="Texture2D" uid="uid://cqec74mappt72" path="res://icons/left_selected.svg" id="2_imtro"]
+[ext_resource type="Texture2D" uid="uid://citsoq0tyai11" path="res://icons/right.svg" id="3_rgn6q"]
+[ext_resource type="Texture2D" uid="uid://b5f6p6q57ha7o" path="res://icons/right_selected.svg" id="4_unk57"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cj124"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Control" type="MarginContainer"]
+custom_minimum_size = Vector2(400, 300)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lfpui")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_27c5l")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VSplitContainer" type="VSplitContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LastMon" type="TextureButton" parent="PanelContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("1_8devc")
+texture_pressed = ExtResource("2_imtro")
+
+[node name="Year" type="Label" parent="PanelContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2023年"
+
+[node name="Month" type="Label" parent="PanelContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "11月"
+
+[node name="NextMon" type="TextureButton" parent="PanelContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("3_rgn6q")
+texture_pressed = ExtResource("4_unk57")
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cj124")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "日"
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "一"
+
+[node name="Label3" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "二"
+
+[node name="Label4" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "三"
+
+[node name="Label5" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "四"
+
+[node name="Label6" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "五"
+
+[node name="Label7" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "六
+"
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 26
+theme_override_constants/v_separation = 8
+columns = 7
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/LastMon" to="." method="_on_last_mon_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/CenterContainer/HBoxContainer/NextMon" to="." method="_on_next_mon_pressed"]
