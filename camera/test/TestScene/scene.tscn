@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://bddeiouecegcs"]
+
+[ext_resource type="Script" path="res://test/TestScene/CameraUnit.gd" id="2_ltck5"]
+[ext_resource type="PackedScene" uid="uid://bxxdv24mbawa2" path="res://test/TestAssets/character.blend" id="3_qlpwj"]
+
+[sub_resource type="Curve" id="Curve_sj400"]
+min_value = 2.0
+max_value = 30.0
+_data = [Vector2(0, 2), 0.0, 22.2932, 0, 1, Vector2(0.544503, 14.1387), -1.23653, -1.23653, 0, 0, Vector2(1, 30), 34.8219, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qvge3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s6yqn"]
+
+[node name="scene" type="Node3D"]
+
+[node name="Player" type="Node3D" parent="."]
+
+[node name="character" parent="Player" instance=ExtResource("3_qlpwj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CameraUnit" type="Node3D" parent="Player" node_paths=PackedStringArray("camera", "look_transform")]
+transform = Transform3D(1, 0, 0, 0, 0.95019, 0.311672, 0, -0.311672, 0.95019, 0, 1.43029, 0)
+script = ExtResource("2_ltck5")
+camera = NodePath("Camera3D")
+init_distance = 3.95
+init_angle = 18.16
+look_transform = NodePath("..")
+rotate_speed = 30.0
+ray_mask = 1
+arm_length = SubResource("Curve_sj400")
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraUnit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.95)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.966205, 0.00606406, 0.257702, -0.257774, 0.0227297, 0.965938, 0, -0.999723, 0.0235247, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -6.73957, 1.3584, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_qvge3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_s6yqn")
