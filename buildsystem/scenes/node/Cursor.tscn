@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj8s63k45cj7r"]
+
+[ext_resource type="Script" path="res://scripts/build_unit.gd" id="1_7nlvi"]
+[ext_resource type="Texture2D" uid="uid://cf4xg043v4n3h" path="res://assets/Cursor.png" id="2_8aohp"]
+
+[node name="Cursor" type="Node3D"]
+script = ExtResource("1_7nlvi")
+mouse_ray_layer = 1
+icon = ExtResource("2_8aohp")

@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2xd0x3eonpk1"]
+
+[ext_resource type="Script" path="res://scripts/build_unit.gd" id="1_5f0ue"]
+[ext_resource type="Texture2D" uid="uid://do2tn3evw4flf" path="res://assets/Wall3Icon.png" id="2_4kmm8"]
+[ext_resource type="PackedScene" uid="uid://cgc3mfclx0oig" path="res://scenes/unit/wall_unit.tscn" id="2_ltvc8"]
+[ext_resource type="PackedScene" uid="uid://bynqyq8txiet4" path="res://scenes/ghost/wall_ghost.tscn" id="3_vhdh8"]
+
+[sub_resource type="Animation" id="Animation_3spn6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WallGhost:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallGhost:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mvlgl"]
+resource_name = "floor"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WallGhost:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallGhost:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(2, 2, 2), Vector3(1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_mid_build"
+}, {
+"args": [],
+"method": &"_on_build"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fei8f"]
+_data = {
+"RESET": SubResource("Animation_3spn6"),
+"floor": SubResource("Animation_mvlgl")
+}
+
+[node name="Wall" type="Node3D" node_paths=PackedStringArray("ghost", "ani")]
+script = ExtResource("1_5f0ue")
+type = 3
+mouse_ray_layer = 17
+icon = ExtResource("2_4kmm8")
+ghost = NodePath("WallGhost")
+unit = ExtResource("2_ltvc8")
+ani = NodePath("AnimationPlayer")
+
+[node name="WallGhost" parent="." instance=ExtResource("3_vhdh8")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fei8f")
+}

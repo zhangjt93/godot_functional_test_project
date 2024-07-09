@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://cg4je4qvhihwa"]
+
+[ext_resource type="Script" path="res://scripts/unit_node.gd" id="1_lh3uu"]
+[ext_resource type="ArrayMesh" uid="uid://dwgbbnp0wplt" path="res://imports/POLYGON - Fantasy Kingdom 1.01/Assets/PolygonFantasyKingdom/Models/SM_Bld_Castle_Floor_Wood_01_mesh/SM_Bld_Castle_Floor_Wood_01_4300000.mesh" id="2_yy1me"]
+[ext_resource type="Material" uid="uid://bv848ebftuw0e" path="res://imports/POLYGON - Fantasy Kingdom 1.01/Assets/PolygonFantasyKingdom/Materials/PolygonFantasyKingdom_Mat_01_A.tres" id="3_qhkf0"]
+[ext_resource type="Script" path="res://scripts/slot.gd" id="4_kbpq6"]
+[ext_resource type="Script" path="res://scripts/detect.gd" id="5_giy34"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8fibw"]
+size = Vector3(5, 0.3, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e45ld"]
+size = Vector3(5, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h0jjx"]
+size = Vector3(3.5, 0.3, 3.5)
+
+[node name="FloorUnit" type="Node3D" node_paths=PackedStringArray("mesh", "col")]
+script = ExtResource("1_lh3uu")
+mesh = NodePath("_mesh")
+col = NodePath("StaticBody3D")
+length = 5.0
+width = 5.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+shape = SubResource("BoxShape3D_8fibw")
+
+[node name="_mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.105, 5)
+mesh = ExtResource("2_yy1me")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("3_qhkf0")
+
+[node name="Slot" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+script = ExtResource("4_kbpq6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+shape = SubResource("BoxShape3D_e45ld")
+
+[node name="Slot4" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.5, 0, 2.5)
+script = ExtResource("4_kbpq6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slot4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+shape = SubResource("BoxShape3D_e45ld")
+
+[node name="Slot3" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.5, 0, 2.5)
+script = ExtResource("4_kbpq6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slot3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+shape = SubResource("BoxShape3D_e45ld")
+
+[node name="Slot2" type="StaticBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("4_kbpq6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slot2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+shape = SubResource("BoxShape3D_e45ld")
+
+[node name="Detect" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+script = ExtResource("5_giy34")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detect"]
+shape = SubResource("BoxShape3D_h0jjx")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://uipc0vt5ybt6"]
+
+[ext_resource type="PackedScene" uid="uid://cyxsaab5b6bxd" path="res://assets/walldouble.glb" id="1_1r4lg"]
+[ext_resource type="Material" uid="uid://bv848ebftuw0e" path="res://imports/POLYGON - Fantasy Kingdom 1.01/Assets/PolygonFantasyKingdom/Materials/PolygonFantasyKingdom_Mat_01_A.tres" id="2_kb02b"]
+
+[node name="walldouble" instance=ExtResource("1_1r4lg")]
+
+[node name="SM_Bld_House_Wall_01" parent="RootNode" index="0"]
+surface_material_override/0 = ExtResource("2_kb02b")

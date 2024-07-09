@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://efrcxyalpch2"]
+
+[ext_resource type="Script" path="res://scripts/character.gd" id="1_gbqqj"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5ch88"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0ly34"]
+size = Vector3(1, 0.1, 0.5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2gjrk"]
+
+[node name="Character" type="CharacterBody3D"]
+script = ExtResource("1_gbqqj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_5ch88")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.483061, -0.435189)
+mesh = SubResource("BoxMesh_0ly34")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_2gjrk")
+
+[node name="CameraNode" type="SpringArm3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.919965, 0.392, 0, -0.392, 0.919965, 0, 0, 0)
+collision_mask = 5
+spring_length = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)

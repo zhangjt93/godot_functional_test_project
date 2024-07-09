@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://h1mf5yn5pxs1"]
+
+[ext_resource type="Script" path="res://scripts/ghost_node.gd" id="1_pmdct"]
+[ext_resource type="ArrayMesh" uid="uid://dwgbbnp0wplt" path="res://imports/POLYGON - Fantasy Kingdom 1.01/Assets/PolygonFantasyKingdom/Models/SM_Bld_Castle_Floor_Wood_01_mesh/SM_Bld_Castle_Floor_Wood_01_4300000.mesh" id="2_4qqfa"]
+[ext_resource type="Texture2D" uid="uid://di8g2536gebmv" path="res://imports/POLYGON - Fantasy Kingdom 1.01/Assets/PolygonFantasyKingdom/Textures/PolygonFantasyKingdom_Texture_01_A.png" id="3_1m5hr"]
+[ext_resource type="Script" path="res://scripts/detect.gd" id="4_4ywrq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdqkm"]
+resource_name = "PolygonFantasyKingdom_Mat_01_A"
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.392157)
+albedo_texture = ExtResource("3_1m5hr")
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bxmql"]
+size = Vector3(3.5, 0.3, 3.5)
+
+[node name="FloorGhost" type="Node3D" node_paths=PackedStringArray("mesh", "detection")]
+script = ExtResource("1_pmdct")
+mesh = NodePath("_mesh")
+length = 5.0
+width = 5.0
+detection = NodePath("Detect")
+
+[node name="_mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 5)
+mesh = ExtResource("2_4qqfa")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_fdqkm")
+
+[node name="Detect" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+script = ExtResource("4_4ywrq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detect"]
+shape = SubResource("BoxShape3D_bxmql")

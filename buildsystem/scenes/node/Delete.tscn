@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://24libk20faa2"]
+
+[ext_resource type="Script" path="res://scripts/build_unit.gd" id="1_6fy1i"]
+[ext_resource type="Texture2D" uid="uid://decqe17ogsb6a" path="res://assets/delete_icon.png" id="2_t0l3y"]
+[ext_resource type="Texture2D" uid="uid://1wdkcdk10b4y" path="res://assets/W_Mace003.png" id="3_juqem"]
+
+[node name="Delete" type="Node3D"]
+script = ExtResource("1_6fy1i")
+type = 6
+mouse_ray_layer = 4
+icon = ExtResource("2_t0l3y")
+mouse_cursor = ExtResource("3_juqem")

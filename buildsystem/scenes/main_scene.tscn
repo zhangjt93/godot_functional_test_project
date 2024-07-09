@@ -1,0 +1,253 @@
+[gd_scene load_steps=23 format=3 uid="uid://c8tx6mlqv48sj"]
+
+[ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_josdm"]
+[ext_resource type="PackedScene" uid="uid://bj8s63k45cj7r" path="res://scenes/node/Cursor.tscn" id="2_15kt0"]
+[ext_resource type="PackedScene" uid="uid://35ynosolhjoi" path="res://scenes/node/Floor.tscn" id="3_0uinu"]
+[ext_resource type="Script" path="res://scripts/build_manager.gd" id="4_eoucr"]
+[ext_resource type="PackedScene" uid="uid://24libk20faa2" path="res://scenes/node/Delete.tscn" id="4_mhkre"]
+[ext_resource type="Texture2D" uid="uid://4oqtbecwtktq" path="res://assets/ground_with_rocks_01_2k/ground_with_rocks_01_color_2k.png" id="5_1116l"]
+[ext_resource type="PackedScene" uid="uid://b2yjm2e70k32o" path="res://scenes/node/Basic.tscn" id="5_uanbm"]
+[ext_resource type="PackedScene" uid="uid://c2xd0x3eonpk1" path="res://scenes/node/Wall.tscn" id="6_5k05b"]
+[ext_resource type="Texture2D" uid="uid://dd62umks7si5w" path="res://assets/ground_with_rocks_01_2k/ground_with_rocks_01_ambient_occlusion_2k.png" id="6_brsyd"]
+[ext_resource type="Texture2D" uid="uid://br7knwmo2tjqx" path="res://assets/ground_with_rocks_01_2k/ground_with_rocks_01_height_2k.png" id="7_plx0f"]
+[ext_resource type="Texture2D" uid="uid://cx0xi87k0w12d" path="res://assets/ground_with_rocks_01_2k/ground_with_rocks_01_normal_gl_2k.png" id="8_jvecl"]
+[ext_resource type="Texture2D" uid="uid://cjxoexgynd846" path="res://assets/ground_with_rocks_01_2k/ground_with_rocks_01_roughness_2k.png" id="9_ksl78"]
+[ext_resource type="PackedScene" uid="uid://efrcxyalpch2" path="res://scenes/character.tscn" id="12_ybd5i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_et8g8"]
+size = Vector3(200, 0.01, 200)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_q6nuc"]
+size = Vector2(200, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7hwgi"]
+albedo_color = Color(0.785641, 0.785641, 0.785641, 1)
+albedo_texture = ExtResource("5_1116l")
+roughness_texture = ExtResource("9_ksl78")
+normal_enabled = true
+normal_texture = ExtResource("8_jvecl")
+ao_enabled = true
+ao_texture = ExtResource("6_brsyd")
+heightmap_enabled = true
+heightmap_texture = ExtResource("7_plx0f")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_350tb"]
+
+[sub_resource type="Sky" id="Sky_bcdfm"]
+sky_material = SubResource("PhysicalSkyMaterial_350tb")
+
+[sub_resource type="Environment" id="Environment_8fd8a"]
+background_mode = 2
+sky = SubResource("Sky_bcdfm")
+
+[sub_resource type="Animation" id="Animation_s5458"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Label3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Label3D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xdqhv"]
+resource_name = "ui_ani"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Label3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Label3D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(2, 2, 2)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%WorldUI/..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_ui_ani_end"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7uspc"]
+_data = {
+"RESET": SubResource("Animation_s5458"),
+"ui_ani": SubResource("Animation_xdqhv")
+}
+
+[node name="MainScene" type="Node3D"]
+script = ExtResource("1_josdm")
+units_scenes = Array[PackedScene]([ExtResource("2_15kt0"), ExtResource("3_0uinu"), ExtResource("4_mhkre"), ExtResource("5_uanbm"), ExtResource("6_5k05b")])
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LogLabel" type="Label" parent="UI/PanelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+text = "未获取到世界坐标"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 0
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+
+[node name="Items" type="HBoxContainer" parent="UI/MarginContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="DeleteButton" type="Button" parent="UI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "是否删除建筑"
+
+[node name="Delete" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 860.0
+offset_top = 10.0
+offset_right = 932.0
+offset_bottom = 41.0
+text = "删除建筑"
+
+[node name="Save" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 959.0
+offset_top = 8.0
+offset_right = 1031.0
+offset_bottom = 39.0
+text = "保存建筑"
+
+[node name="Load" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 1058.0
+offset_top = 7.0
+offset_right = 1130.0
+offset_bottom = 38.0
+text = "加载建筑"
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, 0)
+shape = SubResource("BoxShape3D_et8g8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/StaticBody3D"]
+mesh = SubResource("PlaneMesh_q6nuc")
+surface_material_override/0 = SubResource("StandardMaterial3D_7hwgi")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_8fd8a")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.609578, 0.792726, 0, -0.792726, 0.609578, 0, 0, 0)
+
+[node name="BuildManager" type="Node3D" parent="World"]
+unique_name_in_owner = true
+script = ExtResource("4_eoucr")
+build_dir = "res://build_dir"
+
+[node name="BuildSystem" type="Node3D" parent="World/BuildManager"]
+unique_name_in_owner = true
+
+[node name="Ghost" type="Node3D" parent="World/BuildManager"]
+unique_name_in_owner = true
+
+[node name="Character" parent="World" instance=ExtResource("12_ybd5i")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.962282, 0)
+
+[node name="WorldUI" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Label3D" type="Label3D" parent="WorldUI"]
+unique_name_in_owner = true
+visible = false
+billboard = 1
+text = "测试"
+
+[node name="UIAni" type="AnimationPlayer" parent="WorldUI"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_7uspc")
+}
+
+[connection signal="mouse_entered" from="UI/MarginContainer/PanelContainer" to="." method="_on_panel_container_mouse_entered"]
+[connection signal="mouse_exited" from="UI/MarginContainer/PanelContainer" to="." method="_on_panel_container_mouse_exited"]
+[connection signal="pressed" from="UI/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="UI/Delete" to="World/BuildManager" method="_on_delete_pressed"]
+[connection signal="pressed" from="UI/Save" to="World/BuildManager" method="_on_save_pressed"]
+[connection signal="pressed" from="UI/Load" to="World/BuildManager" method="_on_load_pressed"]
+[connection signal="can_not_build" from="World/BuildManager" to="." method="_on_build_manager_can_not_build"]

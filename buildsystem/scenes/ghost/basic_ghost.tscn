@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://mdg7gw0rlfqu"]
+
+[ext_resource type="Script" path="res://scripts/ghost_node.gd" id="1_1tmwl"]
+[ext_resource type="Texture2D" uid="uid://d4hsk120cg6sn" path="res://assets/decal2.png" id="2_ntex8"]
+[ext_resource type="Script" path="res://scripts/detect.gd" id="3_pu131"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fkkfo"]
+size = Vector3(3.5, 1, 3.5)
+
+[node name="BasicGhost" type="Node3D" node_paths=PackedStringArray("mesh", "detection")]
+script = ExtResource("1_1tmwl")
+mesh = NodePath("Decal")
+length = 30.0
+width = 30.0
+detection = NodePath("Detect")
+
+[node name="Decal" type="Decal" parent="."]
+size = Vector3(50, 30, 50)
+texture_albedo = ExtResource("2_ntex8")
+
+[node name="Detect" type="Area3D" parent="."]
+script = ExtResource("3_pu131")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detect"]
+shape = SubResource("BoxShape3D_fkkfo")
